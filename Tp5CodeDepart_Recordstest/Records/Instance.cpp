@@ -8,7 +8,7 @@
 #include "Instance.h"
 
 Instance::Instance(std::string name)
-    : AbsInstanceComponent(name)
+	: AbsInstanceComponent(name)
 {
 }
 
@@ -16,6 +16,9 @@ Instance::Instance(const Instance& mdd)
 	: AbsInstanceComponent(mdd.getName())
 {
 	// � compl�ter pour copier toutes les instances de niveau inf�rieur contenues dans l'instance}
+	for (auto&& element = mdd.cbegin(); element != mdd.cend(); element++) {
+		addInstanceComponent(*element);
+	}
 }
 
 Instance* Instance::clone() const
@@ -52,23 +55,39 @@ AbsInstanceComponent& Instance::addInstanceComponent(const AbsInstanceComponent&
 	// � compl�ter pour construire par clonage une copie de l'objet re�u en param�tre
 	// et l'ins�rer dans le conteneur des instances. On retourne une r�f�rence � l'objet
 	// qui vient d'�tre ins�r� dans le conteneur.
-
-	return *this; // � remplacer 
+	m_instanceContainer.push_back(InstanceComponentPtr(member.clone()));
+	return *m_instanceContainer.back(); // � remplacer 
 }
 
 void Instance::deleteInstanceComponent(InstanceComponentIterator_const child)
 {
 	// � compl�ter pour �liminer des instances l'�l�ment auquel r�f�re l'it�rateur
+	m_instanceContainer.erase(child);
 }
 
 void Instance::deleteAllComponents(void)
 {
 	// � compl�ter pour �liminer tous les �l�ments de l'instance
+	for (auto&& element = m_instanceContainer.cbegin(); element != m_instanceContainer.cend(); element++) {
+		deleteInstanceComponent(element);
+	}
 }
 
 std::ostream& Instance::printToStream(std::ostream& o) const
 {
 	// � compl�ter pour imprimer sur un stream une instance et ses �l�ments
+
+	int compteur = 1;
+	for (auto&& element : m_instanceContainer)
+	{
+		m_indent = 1;
+		indent(o) << compteur << "Artifact: " << element->getName() << "\n";
+		m_indent += 1;
+		indent(o) << " " << *element << "\n";
+		indent(o) << "-->" << "\n";
+		m_indent -= 1;
+		compteur += 1;
+	}
+
 	return o;
 }
-

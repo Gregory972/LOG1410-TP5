@@ -26,6 +26,7 @@ const AbsDirectoryComponent& Artifact::getDocument() const
 std::ostream& Artifact::printToStream(std::ostream& o) const
 {
 	// � compl�ter pour imprimer sur un stream le nom de l'artefact ainsi que le nom du document qui y est reference.
+	m_indent = 1;
+	indent(o) << m_document.getName() << " " << m_document;
 	return o;
 }
-

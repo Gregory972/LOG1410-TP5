@@ -1,4 +1,4 @@
-#include <string>
+ï»¿#include <string>
 
 #include "Minutes.h"
 
@@ -9,6 +9,6 @@ Minutes::Minutes(std::string name, std::string dateTime)
 
 Minutes* Minutes::clone(void) const
 {
-	// À compléter pour construire un nouvel objet Minutes en appelant le constructeur de copie
-	return nullptr; // À remplacer
+	// ï¿½ complï¿½ter pour construire un nouvel objet Minutes en appelant le constructeur de copie
+	return new Minutes(*this); // ï¿½ remplacer
 }

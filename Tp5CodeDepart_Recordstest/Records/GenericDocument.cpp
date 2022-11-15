@@ -1,1 +1,13 @@
-// GenericDocument.cpp : À COMPLÉTER
+ï»¿// GenericDocument.cpp : ï¿½ COMPLï¿½TER
+
+#include "GenericDocument.h"
+
+GenericDocument::GenericDocument(std::string name, std::string dateTime, std::string description)
+    :AbsDocument(name, dateTime)
+{
+}
+
+GenericDocument* GenericDocument::clone() const
+{
+    return new GenericDocument(*this);
+}
