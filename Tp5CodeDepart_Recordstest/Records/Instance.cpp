@@ -78,16 +78,22 @@ std::ostream& Instance::printToStream(std::ostream& o) const
 	// � compl�ter pour imprimer sur un stream une instance et ses �l�ments
 
 	int compteur = 1;
-	for (auto&& element : m_instanceContainer)
-	{
-		m_indent = 1;
-		indent(o) << compteur << "Artifact: " << element->getName() << "\n";
+	m_indent = 1;
+
+	for (auto&& it = m_instanceContainer.cbegin(); it != m_instanceContainer.cend(); it++) {
 		m_indent += 1;
-		indent(o) << " " << *element << "\n";
-		indent(o) << "-->" << "\n";
-		m_indent -= 1;
+		indent(o) << compteur << " " << (*it).get()->getName() << "\n";
+		o << " " << *it->get();
 		compteur += 1;
+		m_indent -= 1;
 	}
+	
+	/*for (auto&& element : m_instanceContainer)
+	{
+		indent(o) << compteur << " Artifact: " << (*element).getName() << "\n";
+		indent(o) << " " << *element.get();
+		compteur += 1;
+	}*/
 
 	return o;
 }
